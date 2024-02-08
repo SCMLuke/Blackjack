@@ -14,7 +14,6 @@ let sum = document.querySelector("#sum")
 let playerInfo = document.getElementById("player-info")
 let dealerNumberDisplay = document.getElementById("dealer-number")
 let betAmountLabel = document.getElementById("bet-amount")
-let resetButton
 
 // Player object
 let player = {
@@ -39,15 +38,16 @@ function getRandomNumber() {
 // Bet / Money Functions.
 // Place a bet.
 function placeBet() {
-    let betInput = document.getElementById("bet-input").value
+    let betInput = parseInt(document.getElementById("bet-input").value)
+    currentBet = betInput
 
-    if (betInput >= 1 && betInput <= player.playerMoney) {
-        player.playerMoney -= betInput
+    if (currentBet >= 1 && currentBet <= player.playerMoney) {
+        player.playerMoney -= currentBet
         playerInfo.textContent = "Money: " + player.playerMoney
         betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
 
         startGame()
-    } else if (betInput < 1) {
+    } else if (currentBet < 1) {
         betAmountLabel.textContent = "Need bet of at least 1."
     } else {
         betAmountLabel.textContent = "Bet exceeds amount of money."
@@ -127,11 +127,13 @@ function cardCalculation() {
     } else if (totalCardSum === 21) {
         if(totalCardSum == dealerNumber) {
             message = "Tie: Amount returned."
+            gameTie()
             isAlive = false
         } else {
             dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
             hasBlackJack = true
             message = "You Win: Blackjack!"
+            blackjackWin()
         }
     } else {
         dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
@@ -148,10 +150,31 @@ function dealerCalculation() {
     } else if (dealerNumber == totalCardSum) {
         dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
         message = "Tie: Amount returned."
+        gameTie()
         isAlive = false
     } else if (dealerNumber < totalCardSum && totalCardSum <= 21) {
         dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
         message = "You Win: Amount higher than dealer!"
+        gameWin()
         isAlive = false
     }
+}
+
+
+
+// Functions for winning a game.
+function gameTie() {
+    player.playerMoney += currentBet
+    playerInfo.textContent = "Money: " + player.playerMoney
+    betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
+}
+function gameWin() {
+    player.playerMoney += currentBet*2
+    playerInfo.textContent = "Money: " + player.playerMoney
+    betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
+}
+function blackjackWin() {
+    player.playerMoney += currentBet*2+(currentBet*0.5)
+    playerInfo.textContent = "Money: " + player.playerMoney
+    betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
 }
