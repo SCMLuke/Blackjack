@@ -3,6 +3,7 @@ let cardArray = [] // Javascript array
 let totalCardSum = 0
 let hasBlackJack = false
 let isAlive = false
+let hasDoubled = false
 let message = ""
 let dealerNumber = 0
 let currentBet = 0
@@ -111,10 +112,20 @@ function stay() {
 // Double or nothing function.
 function double() {
     if (hasBlackJack == false && isAlive == true) {
+        if ((player.playerMoney - currentBet) >= 0) {
+        // TOGGLE hasDoubled VARIABLE TO TRUE HERE.
+        // CREATE NEW IF STATEMENT FOR CALCULATING PAYOUT IN WIN FUNCTIONS.
+        player.playerMoney -= currentBet
+        currentBet = currentBet * 2
+        hasDoubled = true
         newCard()
         dealerCalculation()
         introMessage.textContent = message
-    }
+        playerInfo.textContent = "Money: " + player.playerMoney
+        } else {
+            betAmountLabel.textContent = "Not enough money!"
+        }
+    } 
 }
 
 
@@ -124,7 +135,7 @@ function double() {
 function cardCalculation() {
     if (totalCardSum < 21) {
         message = "Your card count: " + totalCardSum + "."
-    } else if (totalCardSum === 21) {
+    } else if (totalCardSum == 21) {
         if(totalCardSum == dealerNumber) {
             message = "Tie: Amount returned."
             gameTie()
@@ -134,11 +145,13 @@ function cardCalculation() {
             hasBlackJack = true
             message = "You Win: Blackjack!"
             blackjackWin()
+            isAlive = false
         }
     } else {
         dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
         isAlive = false
         message = "You Lose: You went over 21."
+        betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
     }
 }
 // Calculate if the dealer has more cards than you.
@@ -146,6 +159,7 @@ function dealerCalculation() {
     if (dealerNumber > totalCardSum) {
         dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
         message = "You Lose: Dealer has the higher number!"
+        betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
         isAlive = false
     } else if (dealerNumber == totalCardSum) {
         dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
@@ -162,11 +176,14 @@ function dealerCalculation() {
 
 
 
-// Functions for winning a game.
+// Functions for winning/losing a game.
 function gameTie() {
     player.playerMoney += currentBet
     playerInfo.textContent = "Money: " + player.playerMoney
     betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
+}
+function gameLose() {
+
 }
 function gameWin() {
     player.playerMoney += currentBet*2
