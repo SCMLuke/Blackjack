@@ -156,21 +156,23 @@ function cardCalculation() {
 }
 // Calculate if the dealer has more cards than you.
 function dealerCalculation() {
-    if (dealerNumber > totalCardSum) {
-        dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
-        message = "You Lose: Dealer has the higher number!"
-        betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
-        isAlive = false
-    } else if (dealerNumber == totalCardSum) {
-        dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
-        message = "Tie: Amount returned."
-        gameTie()
-        isAlive = false
-    } else if (dealerNumber < totalCardSum && totalCardSum <= 21) {
-        dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
-        message = "You Win: Amount higher than dealer!"
-        gameWin()
-        isAlive = false
+    if (isAlive ==true) {
+        if (dealerNumber > totalCardSum) {
+            dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
+            message = "You Lose: Dealer has the higher number!"
+            betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
+            isAlive = false
+        } else if (dealerNumber == totalCardSum) {
+            dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
+            message = "Tie: Amount returned."
+            gameTie()
+            isAlive = false
+        } else if (dealerNumber < totalCardSum && totalCardSum <= 21) {
+            dealerNumberDisplay.textContent = "Dealer number: " + dealerNumber
+            message = "You Win: Amount higher than dealer!"
+            gameWin()
+            isAlive = false
+        }
     }
 }
 
