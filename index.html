@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <h1>Blackjack</h1>
+    <div>
+        <p id="intro-message"></p>
+        <p id="dealer-number"></p>
+        <p id="card-amount">Cards:</p>
+        <p id="sum">Sum:</p>
+    </div>
+
+    <div id="button-group">
+        <button id="hit-button" onclick="newCard()">HIT</button>
+        <button id="stay-button" onclick="stay()">STAY</button>
+        <button id="double-button" onclick="double()">DOUBLE</button>
+    </div>
+
+
+    <form id="bet-form">
+        <label for="bet-amount" id="bet-amount">Enter Bet Amount (Min: 1 Max: 200):</label>
+        <input type="number" id="bet-input" name="bet-input">
+        <button type="button" onclick="placeBet()">BET</button>
+    </form>
+
+    <button id="reset-button" onclick="resetMoney()">RESET MONEY</button>
+
+    <p id="player-info"></p>
+
+    <script src="index.js"></script>
+</body>
+</html>
