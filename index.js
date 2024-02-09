@@ -24,6 +24,8 @@ let player = {
 
 playerInfo.textContent = "Money: " + player.playerMoney
 
+
+
 // Generate a random number for the cards.
 function getRandomNumber() {
     let randomCard = Math.floor(Math.random()*13)+1
@@ -183,9 +185,6 @@ function gameTie() {
     player.playerMoney += currentBet
     playerInfo.textContent = "Money: " + player.playerMoney
     betAmountLabel.textContent = "Enter Bet Amount (Min: 1 Max: " + player.playerMoney + "):"
-}
-function gameLose() {
-
 }
 function gameWin() {
     player.playerMoney += currentBet*2
