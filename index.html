@@ -22,14 +22,12 @@
         <button id="double-button" onclick="double()">DOUBLE</button>
     </div>
 
-
+    <label for="bet-amount" id="bet-amount">Enter Bet Amount (Min: 1 Max: 200):</label>
     <form id="bet-form">
-        <label for="bet-amount" id="bet-amount">Enter Bet Amount (Min: 1 Max: 200):</label>
         <input type="number" id="bet-input" name="bet-input">
         <button type="button" onclick="placeBet()">BET</button>
+        <button id="reset-button" onclick="resetMoney()">RESET MONEY</button>
     </form>
-
-    <button id="reset-button" onclick="resetMoney()">RESET MONEY</button>
 
     <p id="player-info"></p>
 
